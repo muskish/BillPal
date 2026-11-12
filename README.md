@@ -1,4 +1,4 @@
-# CashPilot
+# BillPal
 
 > **Cash-flow autopilot for solo service businesses.**  
 > Built for the **PayPal AI Hackathon 2026** (Prize Focus: *Best Use of PayPal + AI* and *Best Demo Delivery*).
@@ -9,7 +9,7 @@
 
 Freelancers and solo agencies frequently struggle with cash flow: will scheduled client payments arrive in time to cover upcoming rent and business expenses? When an invoice is delayed, what tasks should be prioritized?
 
-**CashPilot** connects project milestones to authentic PayPal Sandbox checkouts, listens for verified PayPal webhooks, dynamically updates decimal-safe cash balance forecasts, and leverages AI to propose rescheduled work timelines when payments slip.
+**BillPal** connects project milestones to authentic PayPal Sandbox checkouts, listens for verified PayPal webhooks, dynamically updates decimal-safe cash balance forecasts, and leverages AI to propose rescheduled work timelines when payments slip.
 
 ---
 
@@ -51,7 +51,7 @@ Next.js Server Handlers / Services
 
 ## 4. PayPal Sandbox Integration Details
 
-CashPilot implements a strict, genuine PayPal Sandbox integration:
+BillPal implements a strict, genuine PayPal Sandbox integration:
 1. **Server-Side Authentication:** Obtains OAuth 2.0 bearer tokens via client ID and secret.
 2. **Order Creation:** Generates Sandbox checkout orders directly tied to project milestone IDs.
 3. **Approval & Capture:** Directs buyers to genuine PayPal approval links; server captures funds upon completion.
@@ -81,8 +81,8 @@ AG Grid Community provides high-performance, interactive financial ledgers for:
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/<your-username>/cashpilot.git
-   cd cashpilot
+   git clone https://github.com/<your-username>/billpal.git
+   cd billpal
    ```
 
 2. **Install dependencies:**
@@ -136,4 +136,3 @@ AG Grid Community provides high-performance, interactive financial ledgers for:
 ## 10. License
 
 Distributed under the [MIT License](LICENSE).
-

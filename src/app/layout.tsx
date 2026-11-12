@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "CashPilot | Cash-Flow Autopilot for Solo Businesses",
+  title: "BillPal | Cash-Flow Autopilot for Solo Businesses",
   description: "Predictive cash flow and PayPal payment milestone autopilot for solo service businesses.",
 };
 
