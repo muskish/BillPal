@@ -1,11 +1,22 @@
 import React from "react";
 import { getDashboardData } from "@/lib/db/queries";
 import { PaymentsGrid, MilestoneRow } from "@/components/ag-grid/PaymentsGrid";
-import { CreditCard, ShieldCheck, Zap, Info } from "lucide-react";
+import { CreditCard, ShieldCheck, CheckCircle2, AlertCircle } from "lucide-react";
 
 export const dynamic = "force-dynamic";
 
-export default async function PaymentsPage() {
+interface PaymentsPageProps {
+  searchParams: Promise<{
+    success?: string;
+    captureId?: string;
+    orderId?: string;
+    canceled?: string;
+    error?: string;
+  }>;
+}
+
+export default async function PaymentsPage({ searchParams }: PaymentsPageProps) {
+  const params = await searchParams;
   const { clients } = await getDashboardData();
 
   // Transform relational milestones into flat rows for AG Grid
@@ -46,6 +57,43 @@ export default async function PaymentsPage() {
         </div>
       </div>
 
+      {/* Payment Success Confirmation Banner */}
+      {params.success === "true" && (
+        <div className="bg-emerald-950/40 border border-emerald-800 rounded-xl p-4 flex items-start gap-3 shadow-lg shadow-emerald-950/20 animate-in fade-in slide-in-from-top-2">
+          <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
+          <div className="space-y-1">
+            <h3 className="text-sm font-bold text-emerald-300">
+              PayPal Sandbox Payment Captured Successfully!
+            </h3>
+            <p className="text-xs text-emerald-200/90 leading-relaxed">
+              Order ID: <span className="font-mono font-semibold text-white">{params.orderId}</span> &bull; 
+              Capture ID: <span className="font-mono font-semibold text-white">{params.captureId}</span>. 
+              The database record and actual cash balance have been updated.
+            </p>
+          </div>
+        </div>
+      )}
+
+      {/* Payment Canceled Banner */}
+      {params.canceled === "true" && (
+        <div className="bg-amber-950/30 border border-amber-800 rounded-xl p-4 flex items-start gap-3">
+          <AlertCircle className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
+          <div className="text-xs text-amber-200">
+            <strong className="text-amber-300 font-semibold">Payment Canceled:</strong> The PayPal checkout flow was canceled by the buyer. No funds were captured.
+          </div>
+        </div>
+      )}
+
+      {/* Payment Error Banner */}
+      {params.error && (
+        <div className="bg-rose-950/40 border border-rose-800 rounded-xl p-4 flex items-start gap-3">
+          <AlertCircle className="w-5 h-5 text-rose-400 shrink-0 mt-0.5" />
+          <div className="text-xs text-rose-200">
+            <strong className="text-rose-300 font-semibold">PayPal Error:</strong> {params.error}
+          </div>
+        </div>
+      )}
+
       {/* Sponsor & Sandbox Integrity Card */}
       <div className="bg-slate-900/60 border border-slate-800 rounded-xl p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-xs text-slate-300">
         <div className="flex items-start gap-3">
@@ -53,7 +101,7 @@ export default async function PaymentsPage() {
           <div className="space-y-0.5">
             <span className="font-semibold text-white">Interactive Sponsor Technology: AG Grid Community</span>
             <p className="text-slate-400 text-[11px] leading-relaxed">
-              Provides client-side sorting, column filtering, and quick search. The ledger reflects live data persisted in PostgreSQL.
+              Click &quot;PayPal Checkout&quot; on any pending milestone to launch the genuine PayPal Sandbox checkout flow.
             </p>
           </div>
         </div>
@@ -69,4 +117,3 @@ export default async function PaymentsPage() {
     </main>
   );
 }
-

@@ -197,8 +197,28 @@ export function PaymentsGrid({ initialRows }: { initialRows: MilestoneRow[] }) {
           if (status === "payment_pending") {
             return (
               <button 
-                onClick={() => alert(`Phase 3 PayPal Sandbox checkout will initialize for milestone: ${params.data?.milestoneName}. Setting up in Phase 3!`)}
-                className="inline-flex items-center gap-1 px-3 py-1 rounded-md text-[11px] font-semibold bg-blue-600 hover:bg-blue-500 text-white shadow-sm transition-colors cursor-pointer"
+                onClick={async () => {
+                  try {
+                    const btn = document.getElementById(`pay-btn-${id}`);
+                    if (btn) btn.innerText = "Connecting...";
+                    const res = await fetch("/api/paypal/create-order", {
+                      method: "POST",
+                      headers: { "Content-Type": "application/json" },
+                      body: JSON.stringify({ milestoneId: id }),
+                    });
+                    const data = await res.json();
+                    if (data.approvalUrl) {
+                      window.location.href = data.approvalUrl;
+                    } else {
+                      alert(`Error creating order: ${data.error || "Unknown error"}`);
+                      if (btn) btn.innerText = "PayPal Checkout";
+                    }
+                  } catch (e: any) {
+                    alert(`Network error: ${e.message}`);
+                  }
+                }}
+                id={`pay-btn-${id}`}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-[11px] font-semibold bg-blue-600 hover:bg-blue-500 text-white shadow-sm transition-colors cursor-pointer"
               >
                 <span>PayPal Checkout</span>
                 <ExternalLink className="w-3 h-3" />
