@@ -14,9 +14,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="antialiased bg-slate-950 text-slate-100 min-h-screen flex flex-col selection:bg-blue-500 selection:text-white">
+      <body className="antialiased min-h-screen flex flex-col selection:bg-sky-300 selection:text-sky-900">
         <Navbar />
-        <div className="flex-1">
+        <div className="flex-1 relative z-10">
           {children}
         </div>
       </body>

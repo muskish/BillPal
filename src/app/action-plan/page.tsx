@@ -1,7 +1,7 @@
 import React from "react";
 import { getDashboardData } from "@/lib/db/queries";
 import { ActionPlanWorkbench } from "@/components/ActionPlanWorkbench";
-import { CalendarClock, Sparkles } from "lucide-react";
+import { CalendarClock } from "lucide-react";
 
 export const dynamic = "force-dynamic";
 
@@ -22,26 +22,25 @@ export default async function ActionPlanPage() {
   return (
     <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-6">
+      <div className="glass rounded-2xl p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <div className="flex items-center gap-2">
-            <h1 className="text-2xl font-black text-white tracking-tight flex items-center gap-2.5">
-              <CalendarClock className="w-6 h-6 text-purple-400" />
-              Intelligent Action Plan & Replanning Workbench
+          <div className="flex items-center gap-2 flex-wrap">
+            <h1 className="text-2xl font-black text-white tracking-tight flex items-center gap-2.5 drop-shadow">
+              <CalendarClock className="w-6 h-6 text-white/80" />
+              Intelligent Action Plan &amp; Replanning Workbench
             </h1>
-            <span className="px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-indigo-950 text-indigo-300 border border-indigo-800">
+            <span className="px-2.5 py-0.5 rounded-full text-[10px] font-semibold glass-pill text-white border border-white/30">
               Work Prioritization
             </span>
           </div>
-          <p className="text-xs sm:text-sm text-slate-400 mt-1">
+          <p className="text-xs sm:text-sm text-white/65 mt-1">
             When payment milestones are delayed, BillPal protects your runway by pausing uncompensated work and reprioritizing tasks tied to active cash inflows.
           </p>
         </div>
       </div>
 
-      {/* Workbench Component */}
+      {/* Workbench */}
       <ActionPlanWorkbench initialTasks={serializedTasks} />
     </main>
   );
 }
-

@@ -3,14 +3,78 @@
 @tailwind utilities;
 
 :root {
-  --background: #0f172a;
-  --foreground: #f8fafc;
+  --background: #5bafd6;
+  --foreground: #1a3a4a;
+  --sky-1: #7ec8e3;
+  --sky-2: #5bafd6;
+  --sky-3: #3d8fc0;
+  --glass-bg: rgba(255,255,255,0.18);
+  --glass-border: rgba(255,255,255,0.3);
+  --glass-text: rgba(255,255,255,0.95);
+  --glass-subtext: rgba(255,255,255,0.7);
 }
 
 body {
   color: var(--foreground);
-  background: var(--background);
+  background: linear-gradient(160deg, #7ec8e3 0%, #5bafd6 35%, #3d8fc0 60%, #74b8d4 100%);
+  background-attachment: fixed;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
   min-height: 100vh;
+  position: relative;
+}
+
+/* Animated bokeh blobs behind all pages */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 120px 120px at 8% 12%, rgba(255,158,109,0.55) 0%, transparent 70%),
+    radial-gradient(ellipse 90px 90px at 22% 18%, rgba(249,213,229,0.5) 0%, transparent 70%),
+    radial-gradient(ellipse 70px 70px at 78% 8%, rgba(253,230,138,0.45) 0%, transparent 70%),
+    radial-gradient(ellipse 100px 100px at 92% 55%, rgba(255,143,171,0.45) 0%, transparent 70%),
+    radial-gradient(ellipse 60px 60px at 38% 85%, rgba(181,234,215,0.4) 0%, transparent 70%),
+    radial-gradient(ellipse 85px 85px at 65% 72%, rgba(255,195,100,0.4) 0%, transparent 70%),
+    radial-gradient(ellipse 55px 55px at 5% 60%, rgba(232,213,249,0.45) 0%, transparent 70%),
+    radial-gradient(ellipse 75px 75px at 15% 90%, rgba(255,200,221,0.4) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+  animation: bokehShift 20s ease-in-out infinite alternate;
+}
+
+@keyframes bokehShift {
+  0%   { opacity: 0.8; transform: scale(1) translateY(0px); }
+  50%  { opacity: 1;   transform: scale(1.04) translateY(-8px); }
+  100% { opacity: 0.75; transform: scale(0.97) translateY(4px); }
+}
+
+/* Glass card utility */
+.glass {
+  background: rgba(255,255,255,0.18);
+  backdrop-filter: blur(20px) saturate(1.4);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
+  border: 1px solid rgba(255,255,255,0.32);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.10), inset 0 1px 0 rgba(255,255,255,0.4);
+}
+
+.glass-dark {
+  background: rgba(255,255,255,0.10);
+  backdrop-filter: blur(16px) saturate(1.2);
+  -webkit-backdrop-filter: blur(16px) saturate(1.2);
+  border: 1px solid rgba(255,255,255,0.18);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+}
+
+.glass-pill {
+  background: rgba(255,255,255,0.22);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.4);
+}
+
+/* Ensure children appear above bokeh */
+#__next, main, header, .z-above {
+  position: relative;
+  z-index: 1;
 }
 

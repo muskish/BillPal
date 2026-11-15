@@ -2,19 +2,14 @@ import React from "react";
 import { getDashboardData } from "@/lib/db/queries";
 import Link from "next/link";
 import { 
-  DollarSign, 
   Clock, 
   AlertTriangle, 
   TrendingUp, 
   Briefcase, 
   CreditCard, 
-  CalendarClock, 
   ArrowRight, 
-  ShieldCheck, 
   CheckCircle2,
-  Calendar,
   Sparkles,
-  Zap
 } from "lucide-react";
 
 export const dynamic = "force-dynamic";
@@ -42,26 +37,24 @@ export default async function OverviewPage() {
     totalExpenses, 
     projectedBalance,
     clients, 
-    expenses, 
-    tasks, 
     recentPayments 
   } = data;
 
   return (
     <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
       {/* Welcome Banner */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-gradient-to-r from-blue-950/40 via-slate-900 to-indigo-950/30 border border-slate-800 rounded-2xl p-6 shadow-xl">
+      <div className="glass rounded-2xl p-6 shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div className="space-y-1">
           <div className="flex items-center gap-2">
-            <span className="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-blue-900/60 text-blue-300 border border-blue-700/50">
-              Solo Financial Autopilot
+            <span className="px-2.5 py-0.5 rounded-full text-[11px] font-semibold glass-pill text-white border border-white/30 flex items-center gap-1">
+              <Sparkles className="w-3 h-3" /> Solo Financial Autopilot
             </span>
-            <span className="text-xs text-slate-400">Muskan Shaikh &bull; UX & Product Consulting</span>
+            <span className="text-xs text-white/60">Muskan Shaikh &bull; UX &amp; Product Consulting</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
-            Predictive Cash Runway & Milestones
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight drop-shadow">
+            Predictive Cash Runway &amp; Milestones
           </h1>
-          <p className="text-xs sm:text-sm text-slate-400 max-w-2xl leading-relaxed">
+          <p className="text-xs sm:text-sm text-white/70 max-w-2xl leading-relaxed">
             BillPal links your client deliverables to authentic PayPal Sandbox checkouts, listens for verified webhooks, and protects your cash runway before rent day.
           </p>
         </div>
@@ -69,16 +62,16 @@ export default async function OverviewPage() {
         <div className="flex items-center gap-3">
           <Link
             href="/payments"
-            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs shadow-lg shadow-blue-600/30 transition-all"
+            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white text-sky-700 font-semibold text-xs shadow-lg hover:bg-sky-50 transition-all"
           >
             <CreditCard className="w-4 h-4" />
             <span>Open AG Grid Ledger</span>
           </Link>
           <Link
             href="/cash-flow"
-            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-xs border border-slate-700 transition-all"
+            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl glass-pill text-white font-semibold text-xs border border-white/30 hover:bg-white/20 transition-all"
           >
-            <TrendingUp className="w-4 h-4 text-purple-400" />
+            <TrendingUp className="w-4 h-4" />
             <span>14-Day Scenario</span>
           </Link>
         </div>
@@ -86,79 +79,79 @@ export default async function OverviewPage() {
 
       {/* Financial Health Summary Cards */}
       <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        {/* Actual Money */}
-        <div className="p-5 rounded-2xl bg-slate-900/80 border border-slate-800/90 shadow-sm relative overflow-hidden group">
-          <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-wider text-slate-400">
+        {/* Actual Cash */}
+        <div className="glass p-5 rounded-2xl shadow-sm">
+          <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-wider text-white/70">
             <span>Actual Cash In Bank</span>
-            <span className="px-2 py-0.5 rounded text-[10px] bg-emerald-950 text-emerald-400 border border-emerald-800/50">
+            <span className="px-2 py-0.5 rounded text-[10px] bg-emerald-400/20 text-emerald-200 border border-emerald-300/30">
               Verified
             </span>
           </div>
-          <div className="text-3xl font-black text-white mt-2 tracking-tight">
+          <div className="text-3xl font-black text-white mt-2 tracking-tight drop-shadow">
             {formatCents(currentActualBalance)}
           </div>
-          <p className="text-[11px] text-slate-400 mt-1">
+          <p className="text-[11px] text-white/55 mt-1">
             Opening balance ({formatCents(data.cashAccount?.openingBalance ?? 0)}) + verified payments
           </p>
         </div>
 
         {/* Expected Inflows */}
-        <div className="p-5 rounded-2xl bg-slate-900/80 border border-slate-800/90 shadow-sm group">
-          <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-wider text-blue-400">
+        <div className="glass p-5 rounded-2xl shadow-sm">
+          <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-wider text-sky-200">
             <span>Expected Receivables</span>
-            <Clock className="w-4 h-4 text-blue-400" />
+            <Clock className="w-4 h-4 text-sky-200" />
           </div>
-          <div className="text-3xl font-black text-blue-400 mt-2 tracking-tight">
+          <div className="text-3xl font-black text-sky-100 mt-2 tracking-tight drop-shadow">
             {formatCents(totalExpectedInflow)}
           </div>
-          <p className="text-[11px] text-slate-400 mt-1">
+          <p className="text-[11px] text-white/55 mt-1">
             2 pending milestones awaiting PayPal Sandbox clearance
           </p>
         </div>
 
-        {/* Scheduled Expenses */}
-        <div className="p-5 rounded-2xl bg-slate-900/80 border border-slate-800/90 shadow-sm group">
-          <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-wider text-rose-400">
+        {/* Outflows */}
+        <div className="glass p-5 rounded-2xl shadow-sm">
+          <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-wider text-rose-200">
             <span>Scheduled Outflows</span>
-            <AlertTriangle className="w-4 h-4 text-rose-400" />
+            <AlertTriangle className="w-4 h-4 text-rose-200" />
           </div>
-          <div className="text-3xl font-black text-rose-400 mt-2 tracking-tight">
+          <div className="text-3xl font-black text-rose-200 mt-2 tracking-tight drop-shadow">
             {formatCents(totalExpenses)}
           </div>
-          <p className="text-[11px] text-slate-400 mt-1">
-            Rent ($2,200 due on the 25th) & SaaS software
+          <p className="text-[11px] text-white/55 mt-1">
+            Rent ($2,200 due on the 25th) &amp; SaaS software
           </p>
         </div>
 
-        {/* Forecasted Month-End */}
-        <div className="p-5 rounded-2xl bg-slate-900/80 border border-slate-800/90 shadow-sm group">
-          <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-wider text-purple-400">
+        {/* Projected */}
+        <div className="glass p-5 rounded-2xl shadow-sm">
+          <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-wider text-purple-200">
             <span>Projected Month-End</span>
-            <TrendingUp className="w-4 h-4 text-purple-400" />
+            <TrendingUp className="w-4 h-4 text-purple-200" />
           </div>
-          <div className="text-3xl font-black text-purple-300 mt-2 tracking-tight">
+          <div className="text-3xl font-black text-purple-100 mt-2 tracking-tight drop-shadow">
             {formatCents(projectedBalance)}
           </div>
-          <p className="text-[11px] text-slate-400 mt-1">
+          <p className="text-[11px] text-white/55 mt-1">
             Baseline forecast assuming on-time client payments
           </p>
         </div>
       </section>
 
-      {/* At-Risk Cash Flow Warning Banner */}
-      <div className="p-4 rounded-xl bg-amber-950/30 border border-amber-800/60 flex items-start gap-3">
-        <AlertTriangle className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
+      {/* At-Risk Warning */}
+      <div className="glass p-4 rounded-xl border border-amber-300/30 flex items-start gap-3 bg-amber-400/10">
+        <AlertTriangle className="w-5 h-5 text-amber-200 shrink-0 mt-0.5" />
         <div className="text-xs space-y-1">
-          <div className="font-bold text-amber-300">
+          <div className="font-bold text-amber-100">
             Cash Runway Timing Vulnerability Detected
           </div>
-          <p className="text-amber-200/80 leading-relaxed">
+          <p className="text-amber-100/80 leading-relaxed">
             NovaTech Labs ($4,000) is scheduled on the <strong>20th</strong>, right before your <strong>$2,200 rent is due on the 25th</strong>. If NovaTech pays 14 days late, your cash balance dips into the red. BillPal can simulate this scenario and propose an automated task replanning schedule.
           </p>
           <div className="pt-1">
             <Link 
               href="/cash-flow" 
-              className="inline-flex items-center gap-1 font-semibold text-amber-400 hover:text-amber-300 hover:underline"
+              className="inline-flex items-center gap-1 font-semibold text-amber-200 hover:text-white hover:underline"
             >
               Simulate 14-day late payment scenario <ArrowRight className="w-3 h-3" />
             </Link>
@@ -168,13 +161,13 @@ export default async function OverviewPage() {
 
       {/* Grid: Active Projects & Recent Activity */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Active Projects Quick Cards */}
+        {/* Active Projects */}
         <div className="lg:col-span-2 space-y-4">
           <div className="flex items-center justify-between">
-            <h2 className="text-base font-bold text-white flex items-center gap-2">
-              <Briefcase className="w-4 h-4 text-blue-400" /> Active Client Engagements
+            <h2 className="text-base font-bold text-white flex items-center gap-2 drop-shadow">
+              <Briefcase className="w-4 h-4 text-white/80" /> Active Client Engagements
             </h2>
-            <Link href="/projects" className="text-xs font-semibold text-blue-400 hover:underline flex items-center gap-1">
+            <Link href="/projects" className="text-xs font-semibold text-white/70 hover:text-white hover:underline flex items-center gap-1">
               View all deliverables <ArrowRight className="w-3 h-3" />
             </Link>
           </div>
@@ -184,27 +177,27 @@ export default async function OverviewPage() {
               const project = client.projects[0];
               const pendingCount = project?.milestones.filter(m => m.status === "payment_pending").length ?? 0;
               return (
-                <div key={client.id} className="p-4 rounded-xl bg-slate-900/60 border border-slate-800 flex flex-col justify-between space-y-3">
+                <div key={client.id} className="glass p-4 rounded-xl flex flex-col justify-between space-y-3">
                   <div>
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-blue-400">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-white/80">
                       {client.company ?? client.name}
                     </span>
                     <h3 className="text-sm font-bold text-white mt-0.5 leading-snug">
                       {project?.name}
                     </h3>
-                    <div className="mt-2 text-xs font-mono font-semibold text-slate-300">
+                    <div className="mt-2 text-xs font-mono font-semibold text-white/90">
                       {project ? formatCents(project.totalAmount) : "$0"}
                     </div>
                   </div>
 
-                  <div className="border-t border-slate-800/80 pt-2 flex items-center justify-between text-[11px]">
-                    <span className="text-slate-400">{project?.milestones.length} milestones</span>
+                  <div className="border-t border-white/15 pt-2 flex items-center justify-between text-[11px]">
+                    <span className="text-white/55">{project?.milestones.length} milestones</span>
                     {pendingCount > 0 ? (
-                      <span className="text-amber-400 font-semibold flex items-center gap-1">
+                      <span className="text-amber-200 font-semibold flex items-center gap-1">
                         <Clock className="w-3 h-3" /> {pendingCount} Pending
                       </span>
                     ) : (
-                      <span className="text-emerald-400 font-semibold flex items-center gap-1">
+                      <span className="text-emerald-200 font-semibold flex items-center gap-1">
                         <CheckCircle2 className="w-3 h-3" /> Paid
                       </span>
                     )}
@@ -215,39 +208,39 @@ export default async function OverviewPage() {
           </div>
         </div>
 
-        {/* Recent Payment Ledger Activity */}
+        {/* Recent Payments */}
         <div className="space-y-4">
           <div className="flex items-center justify-between">
-            <h2 className="text-base font-bold text-white flex items-center gap-2">
-              <CreditCard className="w-4 h-4 text-emerald-400" /> Verified Payment Activity
+            <h2 className="text-base font-bold text-white flex items-center gap-2 drop-shadow">
+              <CreditCard className="w-4 h-4 text-white/80" /> Verified Payment Activity
             </h2>
-            <Link href="/payments" className="text-xs font-semibold text-blue-400 hover:underline flex items-center gap-1">
+            <Link href="/payments" className="text-xs font-semibold text-white/70 hover:text-white hover:underline flex items-center gap-1">
               Ledger <ArrowRight className="w-3 h-3" />
             </Link>
           </div>
 
-          <div className="p-4 rounded-xl bg-slate-900/60 border border-slate-800 space-y-3">
+          <div className="glass p-4 rounded-xl space-y-3">
             {recentPayments.length === 0 ? (
-              <p className="text-xs text-slate-400">No payment events recorded yet.</p>
+              <p className="text-xs text-white/55">No payment events recorded yet.</p>
             ) : (
               recentPayments.map((p) => (
-                <div key={p.id} className="flex items-center justify-between pb-3 border-b border-slate-800/60 last:border-none last:pb-0">
+                <div key={p.id} className="flex items-center justify-between pb-3 border-b border-white/10 last:border-none last:pb-0">
                   <div className="space-y-0.5">
                     <div className="text-xs font-semibold text-white">
                       {p.client.company ?? p.client.name}
                     </div>
-                    <div className="text-[10px] text-slate-400">
+                    <div className="text-[10px] text-white/55">
                       {p.milestone.name}
                     </div>
-                    <div className="text-[10px] font-mono text-emerald-400">
+                    <div className="text-[10px] font-mono text-emerald-200">
                       {p.paypalCaptureId}
                     </div>
                   </div>
                   <div className="text-right">
-                    <span className="text-xs font-bold text-emerald-400 font-mono">
+                    <span className="text-xs font-bold text-emerald-200 font-mono">
                       +{formatCents(p.amount)}
                     </span>
-                    <div className="text-[10px] text-slate-400">
+                    <div className="text-[10px] text-white/50">
                       {p.paidAt ? formatDate(p.paidAt) : "Completed"}
                     </div>
                   </div>

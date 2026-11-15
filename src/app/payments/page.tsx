@@ -19,7 +19,6 @@ export default async function PaymentsPage({ searchParams }: PaymentsPageProps) 
   const params = await searchParams;
   const { clients, webhookEvents } = await getDashboardData();
 
-  // Transform relational milestones into flat rows for AG Grid
   const rows: MilestoneRow[] = clients.flatMap((client) =>
     client.projects.flatMap((project) =>
       project.milestones.map((m) => ({
@@ -40,32 +39,32 @@ export default async function PaymentsPage({ searchParams }: PaymentsPageProps) 
   return (
     <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-6">
+      <div className="glass rounded-2xl p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <div className="flex items-center gap-2">
-            <h1 className="text-2xl font-black text-white tracking-tight flex items-center gap-2.5">
-              <CreditCard className="w-6 h-6 text-emerald-400" />
-              Accounts Receivable & PayPal Ledger
+          <div className="flex items-center gap-2 flex-wrap">
+            <h1 className="text-2xl font-black text-white tracking-tight flex items-center gap-2.5 drop-shadow">
+              <CreditCard className="w-6 h-6 text-white/80" />
+              Accounts Receivable &amp; PayPal Ledger
             </h1>
-            <span className="px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-blue-950 text-blue-300 border border-blue-800">
+            <span className="px-2.5 py-0.5 rounded-full text-[10px] font-semibold glass-pill text-white border border-white/30">
               AG Grid Community
             </span>
           </div>
-          <p className="text-xs sm:text-sm text-slate-400 mt-1">
+          <p className="text-xs sm:text-sm text-white/65 mt-1">
             Real-time milestone payment tracking. Filter, sort, and reconcile invoices directly against verified PayPal Sandbox events.
           </p>
         </div>
       </div>
 
-      {/* Payment Success Confirmation Banner */}
+      {/* Success Banner */}
       {params.success === "true" && (
-        <div className="bg-emerald-950/40 border border-emerald-800 rounded-xl p-4 flex items-start gap-3 shadow-lg shadow-emerald-950/20 animate-in fade-in slide-in-from-top-2">
-          <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
+        <div className="glass border border-emerald-300/30 bg-emerald-400/10 rounded-xl p-4 flex items-start gap-3 shadow-lg">
+          <CheckCircle2 className="w-5 h-5 text-emerald-200 shrink-0 mt-0.5" />
           <div className="space-y-1">
-            <h3 className="text-sm font-bold text-emerald-300">
+            <h3 className="text-sm font-bold text-emerald-100">
               PayPal Sandbox Payment Captured Successfully!
             </h3>
-            <p className="text-xs text-emerald-200/90 leading-relaxed">
+            <p className="text-xs text-emerald-100/80 leading-relaxed">
               Order ID: <span className="font-mono font-semibold text-white">{params.orderId}</span> &bull; 
               Capture ID: <span className="font-mono font-semibold text-white">{params.captureId}</span>. 
               The database record and actual cash balance have been updated.
@@ -74,74 +73,74 @@ export default async function PaymentsPage({ searchParams }: PaymentsPageProps) 
         </div>
       )}
 
-      {/* Payment Canceled Banner */}
+      {/* Canceled Banner */}
       {params.canceled === "true" && (
-        <div className="bg-amber-950/30 border border-amber-800 rounded-xl p-4 flex items-start gap-3">
-          <AlertCircle className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
-          <div className="text-xs text-amber-200">
-            <strong className="text-amber-300 font-semibold">Payment Canceled:</strong> The PayPal checkout flow was canceled by the buyer. No funds were captured.
+        <div className="glass border border-amber-300/30 bg-amber-400/10 rounded-xl p-4 flex items-start gap-3">
+          <AlertCircle className="w-5 h-5 text-amber-200 shrink-0 mt-0.5" />
+          <div className="text-xs text-amber-100">
+            <strong className="text-amber-200 font-semibold">Payment Canceled:</strong> The PayPal checkout flow was canceled by the buyer. No funds were captured.
           </div>
         </div>
       )}
 
-      {/* Payment Error Banner */}
+      {/* Error Banner */}
       {params.error && (
-        <div className="bg-rose-950/40 border border-rose-800 rounded-xl p-4 flex items-start gap-3">
-          <AlertCircle className="w-5 h-5 text-rose-400 shrink-0 mt-0.5" />
-          <div className="text-xs text-rose-200">
-            <strong className="text-rose-300 font-semibold">PayPal Error:</strong> {params.error}
+        <div className="glass border border-rose-300/30 bg-rose-400/10 rounded-xl p-4 flex items-start gap-3">
+          <AlertCircle className="w-5 h-5 text-rose-200 shrink-0 mt-0.5" />
+          <div className="text-xs text-rose-100">
+            <strong className="text-rose-200 font-semibold">PayPal Error:</strong> {params.error}
           </div>
         </div>
       )}
 
-      {/* Sponsor & Sandbox Integrity Card */}
-      <div className="bg-slate-900/60 border border-slate-800 rounded-xl p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-xs text-slate-300">
+      {/* AG Grid Info Card */}
+      <div className="glass rounded-xl p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-xs text-white/80">
         <div className="flex items-start gap-3">
-          <ShieldCheck className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
+          <ShieldCheck className="w-5 h-5 text-emerald-200 shrink-0 mt-0.5" />
           <div className="space-y-0.5">
             <span className="font-semibold text-white">Interactive Sponsor Technology: AG Grid Community</span>
-            <p className="text-slate-400 text-[11px] leading-relaxed">
+            <p className="text-white/55 text-[11px] leading-relaxed">
               Click &quot;PayPal Checkout&quot; on any pending milestone to launch the genuine PayPal Sandbox checkout flow.
             </p>
           </div>
         </div>
         <div className="flex items-center gap-2 shrink-0">
-          <span className="px-2.5 py-1 rounded-md bg-blue-950/80 text-blue-400 border border-blue-800/60 font-mono text-[11px]">
+          <span className="px-2.5 py-1 rounded-md glass-pill text-white/90 border border-white/25 font-mono text-[11px]">
             PayPal Sandbox Mode
           </span>
         </div>
       </div>
 
-      {/* AG Grid Component */}
+      {/* AG Grid */}
       <PaymentsGrid initialRows={rows} />
 
-      {/* Verified Webhook Events Audit Log (Phase 4) */}
-      <section className="bg-slate-900/60 border border-slate-800 rounded-2xl p-6 space-y-4 shadow-sm">
+      {/* Webhook Audit Log */}
+      <section className="glass rounded-2xl p-6 space-y-4 shadow-sm">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
           <div>
-            <h2 className="text-base font-bold text-white flex items-center gap-2">
-              <ShieldCheck className="w-4 h-4 text-emerald-400" />
-              PayPal Webhook Event Log & Idempotency Audit
+            <h2 className="text-base font-bold text-white flex items-center gap-2 drop-shadow">
+              <ShieldCheck className="w-4 h-4 text-emerald-200" />
+              PayPal Webhook Event Log &amp; Idempotency Audit
             </h2>
-            <p className="text-xs text-slate-400 mt-0.5">
-              Every incoming event at <code className="text-blue-400 font-mono">/api/webhooks/paypal</code> is cryptographically verified with PayPal and processed idempotently.
+            <p className="text-xs text-white/55 mt-0.5">
+              Every incoming event at <code className="text-sky-200 font-mono">/api/webhooks/paypal</code> is cryptographically verified with PayPal and processed idempotently.
             </p>
           </div>
-          <span className="text-[11px] font-mono px-2.5 py-1 rounded bg-slate-950 text-slate-400 border border-slate-800">
+          <span className="text-[11px] font-mono px-2.5 py-1 rounded glass-dark text-white/60 border border-white/15">
             Webhook ID: 2AY27...44028
           </span>
         </div>
 
         {webhookEvents.length === 0 ? (
-          <div className="p-6 rounded-xl bg-slate-950/60 border border-slate-800/80 text-center space-y-2">
-            <p className="text-xs text-slate-400">
+          <div className="p-6 rounded-xl glass-dark border border-white/10 text-center space-y-2">
+            <p className="text-xs text-white/55">
               No webhook events received yet. Webhooks configured to notify:
             </p>
-            <code className="text-xs text-emerald-400 bg-emerald-950/40 px-3 py-1 rounded-md border border-emerald-800/50 inline-block font-mono">
+            <code className="text-xs text-emerald-200 bg-emerald-400/10 px-3 py-1 rounded-md border border-emerald-300/20 inline-block font-mono">
               https://bill-pal.vercel.app/api/webhooks/paypal
             </code>
-            <p className="text-[11px] text-slate-500">
-              When a buyer approves a payment, PayPal sends a <span className="text-slate-300 font-semibold">PAYMENT.CAPTURE.COMPLETED</span> event here.
+            <p className="text-[11px] text-white/40">
+              When a buyer approves a payment, PayPal sends a <span className="text-white/70 font-semibold">PAYMENT.CAPTURE.COMPLETED</span> event here.
             </p>
           </div>
         ) : (
@@ -149,24 +148,24 @@ export default async function PaymentsPage({ searchParams }: PaymentsPageProps) 
             {webhookEvents.map((evt) => (
               <div 
                 key={evt.id}
-                className="p-3.5 rounded-xl bg-slate-950/70 border border-slate-800/80 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs"
+                className="glass-dark p-3.5 rounded-xl border border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs"
               >
                 <div className="space-y-1">
                   <div className="flex items-center gap-2">
                     <span className="font-mono font-semibold text-white">
                       {evt.paypalEventId}
                     </span>
-                    <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-blue-950 text-blue-300 border border-blue-800/60">
+                    <span className="px-2 py-0.5 rounded text-[10px] font-semibold glass-pill text-white/90 border border-white/25">
                       {evt.eventType}
                     </span>
                   </div>
-                  <div className="text-[11px] text-slate-400">
-                    Resource: <span className="font-mono text-slate-300">{evt.resourceId ?? "N/A"}</span>
+                  <div className="text-[11px] text-white/50">
+                    Resource: <span className="font-mono text-white/70">{evt.resourceId ?? "N/A"}</span>
                   </div>
                 </div>
 
                 <div className="flex items-center gap-3 sm:text-right">
-                  <div className="text-[11px] text-slate-500 font-mono">
+                  <div className="text-[11px] text-white/40 font-mono">
                     {new Intl.DateTimeFormat("en-US", {
                       month: "short",
                       day: "numeric",
@@ -178,10 +177,10 @@ export default async function PaymentsPage({ searchParams }: PaymentsPageProps) 
 
                   <span className={`px-2.5 py-1 rounded-md text-[11px] font-semibold uppercase tracking-wider ${
                     evt.processingStatus === "processed"
-                      ? "bg-emerald-950 text-emerald-400 border border-emerald-800/60"
+                      ? "bg-emerald-400/20 text-emerald-200 border border-emerald-300/30"
                       : evt.processingStatus === "ignored_duplicate"
-                      ? "bg-amber-950 text-amber-300 border border-amber-800/60"
-                      : "bg-rose-950 text-rose-300 border border-rose-800/60"
+                      ? "bg-amber-400/20 text-amber-200 border border-amber-300/30"
+                      : "bg-rose-400/20 text-rose-200 border border-rose-300/30"
                   }`}>
                     {evt.processingStatus}
                   </span>
