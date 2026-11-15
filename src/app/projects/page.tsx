@@ -1,6 +1,7 @@
 import React from "react";
 import { getDashboardData } from "@/lib/db/queries";
 import Link from "next/link";
+import { ProjectBriefExtractor } from "@/components/ProjectBriefExtractor";
 import { 
   Briefcase, 
   Calendar, 
@@ -48,16 +49,9 @@ export default async function ProjectsPage() {
           </p>
         </div>
 
-        {/* AI Brief Import Trigger (Phase 6 preparation) */}
+        {/* AI Brief Extractor Component (Phase 6) */}
         <div className="flex items-center gap-2">
-          <button 
-            onClick={undefined}
-            className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-gradient-to-r from-purple-900/60 to-indigo-900/60 hover:from-purple-800/80 hover:to-indigo-800/80 text-purple-200 border border-purple-700/50 text-xs font-semibold shadow-md transition-all cursor-not-allowed opacity-80"
-            title="AI Extraction unlocks in Phase 6"
-          >
-            <Sparkles className="w-3.5 h-3.5 text-purple-400" />
-            <span>AI Brief Extraction (Phase 6)</span>
-          </button>
+          <ProjectBriefExtractor />
         </div>
       </div>
 
