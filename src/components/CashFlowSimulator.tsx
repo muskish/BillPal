@@ -176,7 +176,7 @@ export function CashFlowSimulator({ openingBalance, milestones, expenses }: Cash
                 : "Baseline Cash Forecast (On-Time Payments)"}
             </h2>
             <p className="text-xs text-slate-400 max-w-2xl leading-relaxed">
-              Dynamically shifts NovaTech Labs ($4,000 Milestone 1) past rent day (the 25th) without altering authentic database records.
+              Dynamically shifts NovaTech Labs ($4,000 Milestone 1) past rent day (the 25th) without altering authentic database records. Protects Muskan's cash runway.
             </p>
           </div>
 

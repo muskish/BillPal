@@ -45,7 +45,7 @@ export default async function ProjectsPage() {
             Client Engagements & Milestones
           </h1>
           <p className="text-xs sm:text-sm text-slate-400 mt-1">
-            Active consulting projects for Priya Sharma. Each milestone ties directly into genuine PayPal Sandbox payment orders.
+            Active consulting projects for Muskan Shaikh. Each milestone ties directly into genuine PayPal Sandbox payment orders.
           </p>
         </div>
 

@@ -3,7 +3,7 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 async function main() {
-  console.log("Seeding BillPal demo dataset for Priya...");
+  console.log("Seeding BillPal demo dataset for Muskan...");
 
   // Clean existing tables in reverse dependency order
   await prisma.scheduleProposal.deleteMany();
@@ -17,11 +17,11 @@ async function main() {
   await prisma.webhookEvent.deleteMany();
   await prisma.freelancer.deleteMany();
 
-  // 1. Freelancer Profile: Priya Sharma
-  const priya = await prisma.freelancer.create({
+  // 1. Freelancer Profile: Muskan Shaikh
+  const muskan = await prisma.freelancer.create({
     data: {
-      name: "Priya Sharma",
-      email: "priya@cashpilot-demo.com",
+      name: "Muskan Shaikh",
+      email: "muskan@billpal-demo.com",
       role: "Senior Product Designer & UX Consultant",
     },
   });
@@ -261,7 +261,7 @@ async function main() {
   });
 
   console.log("Successfully seeded BillPal database on Neon!");
-  console.log(`- Freelancer: ${priya.name}`);
+  console.log(`- Freelancer: ${muskan.name}`);
   console.log(`- Opening Balance: $${cashAccount.openingBalance / 100}`);
   console.log(`- Operating Rent Expense: $2,200 due on the 25th`);
   console.log(`- Clients: Acme Corp, NovaTech Labs, Zenith Studio`);

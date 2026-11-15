@@ -56,7 +56,7 @@ export default async function OverviewPage() {
             <span className="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-blue-900/60 text-blue-300 border border-blue-700/50">
               Solo Financial Autopilot
             </span>
-            <span className="text-xs text-slate-400">Priya Sharma &bull; UX & Product Consulting</span>
+            <span className="text-xs text-slate-400">Muskan Shaikh &bull; UX & Product Consulting</span>
           </div>
           <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
             Predictive Cash Runway & Milestones

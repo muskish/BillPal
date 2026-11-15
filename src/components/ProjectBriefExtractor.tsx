@@ -25,7 +25,7 @@ export function ProjectBriefExtractor() {
   const [savedSuccess, setSavedSuccess] = useState(false);
   const router = useRouter();
 
-  const sampleBrief = `Hi Priya,
+  const sampleBrief = `Hi Muskan,
 
 We need a comprehensive redesign of our Fintech SaaS onboarding platform. The project scope includes:
 1. User research, heuristic evaluation, and wireframe prototypes (delivered in 3 weeks).

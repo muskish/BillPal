@@ -321,7 +321,7 @@ function runDeterministicReplanning(context: {
   return {
     proposalId: `PROP-RULE-${Date.now().toString(36).toUpperCase()}`,
     triggerReason: `NovaTech Milestone 1 Delayed (+${context.delayDays} days)`,
-    financialRationale: `NovaTech Milestone 1 is unpaid and shifts past rent day (the 25th). Pausing payment-dependent Phase 2 work protects Priya's working capital.`,
+    financialRationale: `NovaTech Milestone 1 is unpaid and shifts past rent day (the 25th). Pausing payment-dependent Phase 2 work protects Muskan's working capital.`,
     tasksToKeep,
     tasksToDelay,
     source: "rule_based_fallback",

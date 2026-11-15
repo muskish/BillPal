@@ -82,7 +82,7 @@ The **Accounts Receivable & PayPal Ledger** (`/payments`) uses **AG Grid Communi
 
 ## 6. Demo Persona & 2-Minute Judging Walkthrough
 
-- **Freelancer:** Priya Sharma (Solo UX & Product Consultant)
+- **Freelancer:** Muskan Shaikh (Solo UX & Product Consultant)
 - **Starting Cash:** $4,500.00 in primary operating account
 - **Operating Rent:** $2,200.00 due on the 25th
 - **Clients:**
@@ -91,7 +91,7 @@ The **Accounts Receivable & PayPal Ledger** (`/payments`) uses **AG Grid Communi
   - **Zenith Studio:** Design Advisory Retainer ($1,800) &mdash; Verified Captured
 
 ### Recommended 2-Minute Demo Sequence:
-1. **Overview (`/`):** Inspect Priya's cash position ($6,300), expected receivables ($7,500), and the timing vulnerability alert regarding rent on the 25th.
+1. **Overview (`/`):** Inspect Muskan's cash position ($6,300), expected receivables ($7,500), and the timing vulnerability alert regarding rent on the 25th.
 2. **Projects (`/projects`):** Click **"Extract Brief with Gemini AI"** &rarr; load sample brief &rarr; extract structured deliverables and milestones.
 3. **Payments (`/payments`):** Inspect the AG Grid Community ledger. Click **"PayPal Checkout"** on Acme Corp ($3,500) to test genuine sandbox approval and view the live capture ID!
 4. **Webhook Audit Log (`/payments`):** Scroll to the bottom to verify incoming webhook events with cryptographic verification status and idempotency audit badges.
@@ -124,7 +124,7 @@ cp .env.example .env.local
 # 4. Generate Prisma client & push schema
 pnpm prisma db push
 
-# 5. Seed Priya's demo dataset
+# 5. Seed Muskan's demo dataset
 pnpm prisma db seed
 
 # 6. Run local development server
