@@ -1,7 +1,7 @@
 import { prisma } from "@/lib/prisma";
 
 export async function getDashboardData() {
-  const [freelancer, cashAccount, clients, expenses, tasks, recentPayments] = await Promise.all([
+  const [freelancer, cashAccount, clients, expenses, tasks, recentPayments, webhookEvents] = await Promise.all([
     prisma.freelancer.findFirst(),
     prisma.cashAccount.findFirst(),
     prisma.client.findMany({
@@ -38,6 +38,10 @@ export async function getDashboardData() {
       },
       orderBy: { createdAt: "desc" },
       take: 5,
+    }),
+    prisma.webhookEvent.findMany({
+      orderBy: { receivedAt: "desc" },
+      take: 6,
     }),
   ]);
 
@@ -79,6 +83,7 @@ export async function getDashboardData() {
     expenses,
     tasks,
     recentPayments,
+    webhookEvents,
   };
 }
 

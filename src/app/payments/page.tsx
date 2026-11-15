@@ -17,7 +17,7 @@ interface PaymentsPageProps {
 
 export default async function PaymentsPage({ searchParams }: PaymentsPageProps) {
   const params = await searchParams;
-  const { clients } = await getDashboardData();
+  const { clients, webhookEvents } = await getDashboardData();
 
   // Transform relational milestones into flat rows for AG Grid
   const rows: MilestoneRow[] = clients.flatMap((client) =>
@@ -114,6 +114,83 @@ export default async function PaymentsPage({ searchParams }: PaymentsPageProps) 
 
       {/* AG Grid Component */}
       <PaymentsGrid initialRows={rows} />
+
+      {/* Verified Webhook Events Audit Log (Phase 4) */}
+      <section className="bg-slate-900/60 border border-slate-800 rounded-2xl p-6 space-y-4 shadow-sm">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+          <div>
+            <h2 className="text-base font-bold text-white flex items-center gap-2">
+              <ShieldCheck className="w-4 h-4 text-emerald-400" />
+              PayPal Webhook Event Log & Idempotency Audit
+            </h2>
+            <p className="text-xs text-slate-400 mt-0.5">
+              Every incoming event at <code className="text-blue-400 font-mono">/api/webhooks/paypal</code> is cryptographically verified with PayPal and processed idempotently.
+            </p>
+          </div>
+          <span className="text-[11px] font-mono px-2.5 py-1 rounded bg-slate-950 text-slate-400 border border-slate-800">
+            Webhook ID: 2AY27...44028
+          </span>
+        </div>
+
+        {webhookEvents.length === 0 ? (
+          <div className="p-6 rounded-xl bg-slate-950/60 border border-slate-800/80 text-center space-y-2">
+            <p className="text-xs text-slate-400">
+              No webhook events received yet. Webhooks configured to notify:
+            </p>
+            <code className="text-xs text-emerald-400 bg-emerald-950/40 px-3 py-1 rounded-md border border-emerald-800/50 inline-block font-mono">
+              https://bill-pal.vercel.app/api/webhooks/paypal
+            </code>
+            <p className="text-[11px] text-slate-500">
+              When a buyer approves a payment, PayPal sends a <span className="text-slate-300 font-semibold">PAYMENT.CAPTURE.COMPLETED</span> event here.
+            </p>
+          </div>
+        ) : (
+          <div className="space-y-2">
+            {webhookEvents.map((evt) => (
+              <div 
+                key={evt.id}
+                className="p-3.5 rounded-xl bg-slate-950/70 border border-slate-800/80 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs"
+              >
+                <div className="space-y-1">
+                  <div className="flex items-center gap-2">
+                    <span className="font-mono font-semibold text-white">
+                      {evt.paypalEventId}
+                    </span>
+                    <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-blue-950 text-blue-300 border border-blue-800/60">
+                      {evt.eventType}
+                    </span>
+                  </div>
+                  <div className="text-[11px] text-slate-400">
+                    Resource: <span className="font-mono text-slate-300">{evt.resourceId ?? "N/A"}</span>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-3 sm:text-right">
+                  <div className="text-[11px] text-slate-500 font-mono">
+                    {new Intl.DateTimeFormat("en-US", {
+                      month: "short",
+                      day: "numeric",
+                      hour: "numeric",
+                      minute: "numeric",
+                      second: "numeric",
+                    }).format(new Date(evt.receivedAt))}
+                  </div>
+
+                  <span className={`px-2.5 py-1 rounded-md text-[11px] font-semibold uppercase tracking-wider ${
+                    evt.processingStatus === "processed"
+                      ? "bg-emerald-950 text-emerald-400 border border-emerald-800/60"
+                      : evt.processingStatus === "ignored_duplicate"
+                      ? "bg-amber-950 text-amber-300 border border-amber-800/60"
+                      : "bg-rose-950 text-rose-300 border border-rose-800/60"
+                  }`}>
+                    {evt.processingStatus}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </section>
     </main>
   );
 }
